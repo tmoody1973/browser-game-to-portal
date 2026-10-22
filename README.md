@@ -95,6 +95,10 @@ MODEL=sonnet MAX_BUDGET_USD=5 ~/.claude/skills/browser-game-to-portal/scripts/ru
 
 Each run saves its raw output to `runs/` and adds a line to `passes.jsonl` with the cost, minutes, and a running project total.
 
+Runs are isolated by default (`--setting-sources project`), so your personal `~/.claude` instructions, hooks and plugins don't leak into the build. The run has file tools only and can't download anything, so put three.js and your fonts in the folder first (see "Setup before day one" in `references/briefs.md`).
+
+**Mature themes** (beer, etc.) can't go on CrazyGames or Poki, which require PEGI 12. The skill routes them to your own site (e.g. Vercel) + itch.io instead.
+
 **Cost warning:** each pass is a real Claude run billed to your account. The guide's passes cost $1.01–$12.94 each on Opus. Use `MAX_BUDGET_USD` to cap a run.
 
 ## Structure

@@ -2,6 +2,18 @@
 
 Checked Oct 2026 against each portal's docs (links inline). **Re-check before submitting.** Portals change their rules. Newgrounds and GameDistribution rules couldn't be verified (docs blocked or missing).
 
+## Mature route (alcohol, drugs, tobacco, other PEGI 16+ themes)
+
+CrazyGames: "an audience aged 13 or more. Your game must be PEGI 12 compliant" ([gameplay](https://docs.crazygames.com/requirements/gameplay/)). PEGI: a game that "refers to or depicts the use of illegal drugs, alcohol or tobacco" is "always PEGI 16 or PEGI 18" ([PEGI](https://pegi.info/what-do-the-labels-mean)). Poki has no public content page, but it's family-facing, so assume it's stricter. A beer game is therefore off both.
+
+Instead:
+1. **Own site** on any static host. The game is plain files, so Vercel deploys it with no build step: `vercel deploy` for a preview URL, then `vercel deploy --prod`. Point your own domain at it. Use the home page (landing.md) as the front door.
+2. **itch.io:** "Adult content must be labeled" ([quality guidelines](https://itch.io/docs/creators/quality-guidelines)). Fill in the content classification honestly.
+3. Skip the SDK adapter and the QA gate. Keep the funnel events, `?capture` and covers.
+4. Newgrounds hosts mature content with its own ratings *(unverified: docs blocked)*.
+
+Or swap the theme (root beer, soda) and keep every portal open. Offer both; the user picks.
+
 ## The adapter
 
 Every portal wants its own SDK for the same handful of moments: loading start/stop, gameplay start/stop, ads between runs, mute. Put them all behind one small module so the game only ever calls e.g. `platform.gameplayStart()` and never knows which portal it's on. itch.io = no SDK (the adapter's no-op case).

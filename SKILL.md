@@ -5,7 +5,7 @@ description: Takes a small browser game from an empty folder (or any stage after
 
 # Browser Game → Portal
 
-Source: @0xbobaaa's "How to Build and Ship Your Own Browser Game with Claude Opus 5.5" (Skyhold: 22 passes, ~$164, 9 days, CrazyGames SDK QA 7/7 first try). The craft lives in [references/briefs.md](references/briefs.md). Use those prompts as written; don't paraphrase them.
+Source: @0xbobaaa's "How to Build and Ship Your Own Browser Game with Claude Opus 5.5" (Skyhold: 22 passes, ~164 USD, 9 days, CrazyGames SDK QA 7/7 first try). The craft lives in [references/briefs.md](references/briefs.md). Use those prompts as written; don't paraphrase them.
 
 **The rule that saved the project: fix the first minute before you build the fifth island.**
 
@@ -22,7 +22,7 @@ Ask what exists, then jump in. Don't restart a project that's already moving.
 | A playable core | **Passes**: one system per run, five-part brief. | briefs.md |
 | Features, but no traffic data | **Measure first.** Add funnel events, run Prompt 2. Freeze new features. | funnel.md |
 | A first minute that works | **Host** on own domain with a **home page** (rules, rule toy, build log), add `?capture` | landing.md, briefs.md |
-| Ready to publish | **Portal adapter + one zip per portal** (Prompt 3), pass the QA gate | portals.md |
+| Ready to publish | **Portal adapter + one zip per portal** (Prompt 3), pass the QA gate. Mature theme → own site (e.g. Vercel) + itch.io instead | portals.md |
 | Live on a portal | **Four numbers**. Fix the worst one, one pass at a time | funnel.md |
 
 ## Find the rule (brainstorm that converges)
@@ -30,7 +30,7 @@ Ask what exists, then jump in. Don't restart a project that's already moving.
 The output is one sentence a stranger gets in 2 s, before the first tap (Skyhold: "the island has a centre of mass").
 
 1. **Ask** (one AskUserQuestion, skip anything they've already said): the feeling (cozy, tense, chaotic, clever), the input (one tap, drag, aim, two keys), the session (30 s bursts or 5 min runs), one game they love.
-2. **Generate 5 rules.** Each one names a single physical or systemic truth, plus the 5-second loop it implies. Spread them across feelings. Don't write five versions of one idea.
+2. **Generate 5 rules.** Each one names a single physical or systemic truth, plus the 5-second loop it implies. Spread them across mechanics (and across feelings if they didn't pick one). Don't write five versions of one idea.
 3. **Filter** each candidate:
    - 2-second test: one screenshot explains it.
    - "And" test: needs "and" twice → it's two games.
@@ -38,6 +38,7 @@ The output is one sentence a stranger gets in 2 s, before the first tap (Skyhold
    - 90-second ending: a first run can end satisfyingly in under 90 s.
    - Drawable in code: no image files needed (if on the default stack).
    - Phone test: playable with one thumb.
+   - Portal-safe: CrazyGames requires PEGI 12. Alcohol, drugs or tobacco → PEGI 16+ → **mature route** (portals.md). Flag it, and let the user choose a safe swap (root beer) or the route.
 4. **Show the survivors** in a table (rule · loop · win · lose · weakest test). **The user picks. Don't pick for them.** Optional deeper check on the pick: `game-design`.
 5. The picked rule goes into the one-page doc.
 
@@ -51,12 +52,13 @@ From the style menu in style.md, offer 2–3 looks that make **the rule readable
 
 ## The pass loop
 
+0. **Setup, once.** The headless pass has file tools only: no network, no shell. Put the engine and fonts in the folder first (three.js r171+: copy **both** `build/three.module.js` and `build/three.core.js`), then list them in the brief and say "do not read lib/". See briefs.md.
 1. Pick ONE system. Write a brief using the five-part template in briefs.md.
 2. Run it: `scripts/run-pass.sh brief.txt` (headless `claude -p`, logs cost to `passes.jsonl`), or hand the same brief to a subagent or do it in-session. **The brief is the method. The runner is interchangeable.**
 3. The human playtests. Accepted behaviour joins the project's **keep list** (`KEEP.md`), which goes into every later brief with `STYLE.md`.
 4. Next pass. Each one gets one finish line you can check by playing.
 
-The guide's range: $1.01 (SDK save) to $12.94 (arcade loop) per pass, and 46 min for the day-one pass. The cost per feature comes back in the JSON, so the ledger shows what each feature cost.
+The guide's range: 1.01–12.94 USD (SDK save to arcade loop) per pass, and 46 min for the day-one pass. The cost per feature comes back in the JSON, so the ledger shows what each feature cost.
 
 ## Defaults (each one is a knob, not a law)
 
@@ -67,7 +69,7 @@ The guide's range: $1.01 (SDK save) to $12.94 (arcade loop) per pass, and 46 min
 | Look | Low-poly flat pastel | 7-style menu in style.md (toon, voxel, clay, isometric, neon, pixel) |
 | Type | Self-hosted OFL woff2, display + UI (Skyhold: Baloo 2 + Nunito, JetBrains Mono for numbers) | Any OFL pair. Never a CDN in portal builds |
 | Model | `--model opus` | Any. Keep the tool allowlist tight |
-| Host | One small Node process (Skyhold: 20 MB RAM, ~$0.19/mo), own domain from day one | Any static host + tiny endpoint |
+| Host | One small Node process (Skyhold: 20 MB RAM, ~0.19 USD/mo), own domain from day one | Any static host + tiny endpoint |
 | Portals | CrazyGames, Poki, GameDistribution, itch.io, Newgrounds | Any subset. Adapter makes adding one cheap |
 
 ## Trailer: let the game record itself
@@ -81,7 +83,7 @@ Add `?capture`: fixed-size canvas, deterministic `window.render(t)`, and a scrip
 3. Building the fifth island before the first minute works.
 4. Sign-in before the first round ends (guide: 9 players → 0 sign-ins).
 5. Saving to `localStorage` on a portal that requires its SDK → instant QA fail.
-6. Judging by build cost. $164 is nothing. Retention is the whole story.
+6. Judging by build cost. 164 USD is nothing. Retention is the whole story.
 
 ## Who does what
 

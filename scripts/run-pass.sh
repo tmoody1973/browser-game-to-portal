@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Run one five-part brief as a headless Claude pass and log its cost.
 # Usage: run-pass.sh brief.txt [pass-name]
-# Env: MODEL (default opus), MAX_BUDGET_USD (optional cap), LEDGER (default passes.jsonl)
+# Env: MODEL (default opus), MAX_BUDGET_USD (optional cap), LEDGER (default passes.jsonl),
+#      SETTING_SOURCES (default "project": keeps your personal hooks and plugins out),
+#      ISOLATE (default 1: also excludes ~/.claude/CLAUDE.md, ~/.claude/rules and ~/CLAUDE.md,
+#      which are otherwise picked up as "ancestor" project files for any game under $HOME)
 set -euo pipefail
 
 brief="${1:?usage: run-pass.sh brief.txt [pass-name]}"
@@ -12,8 +15,10 @@ mkdir -p runs
 out="runs/$(date +%Y%m%d-%H%M%S)-$name.json"
 budget=()
 [ -n "${MAX_BUDGET_USD:-}" ] && budget=(--max-budget-usd "$MAX_BUDGET_USD")
+[ "${ISOLATE:-1}" = 1 ] && budget+=(--settings "{\"claudeMdExcludes\":[\"$HOME/.claude/CLAUDE.md\",\"$HOME/.claude/rules/**\",\"$HOME/CLAUDE.md\"]}")
 
 claude -p --model "${MODEL:-opus}" --output-format json --permission-mode acceptEdits \
+  --setting-sources "${SETTING_SOURCES:-project}" \
   --allowedTools "Read,Write,Edit,Glob,Grep" ${budget[@]+"${budget[@]}"} < "$brief" > "$out" || true
 
 # First line only: shell notices can trail the JSON.

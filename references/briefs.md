@@ -30,6 +30,25 @@ claude -p --model opus --output-format json --permission-mode acceptEdits --allo
 
 `scripts/run-pass.sh` wraps this and appends `{pass, cost, minutes, turns, is_error}` to `passes.jsonl`. JSON fields: `total_cost_usd`, `duration_ms`, `num_turns`, `is_error`, `result`, `session_id`.
 
+**Skill addition: `--setting-sources project`** (the script's default). Without it, the headless pass loads the user's personal `~/.claude` CLAUDE.md, hooks and plugins, and follows *those* instead of the brief. Tested: a probe saw all six personal systems by default and none with the flag. Override with `SETTING_SOURCES=user,project,local` if you really want them.
+
+## Setup before day one (skill addition)
+
+The pass can't download anything. Before Prompt 1:
+
+```bash
+npm i three && mkdir -p lib/three/addons/geometries
+cp node_modules/three/build/three.module.js node_modules/three/build/three.core.js lib/three/   # r171+ needs both
+cp node_modules/three/examples/jsm/geometries/RoundedBoxGeometry.js lib/three/addons/geometries/  # only the addons STYLE.md needs
+npm i @fontsource/<font> && cp node_modules/@fontsource/<font>/files/<font>-latin-700-normal.woff2 fonts/  # + its LICENSE
+```
+
+Write `fonts/fonts.css` with the `@font-face` rules, then add this line to Prompt 1 after the Style line:
+
+```
+Already in this folder, use them and do not fetch anything: [list each file]. Do not read the files in lib/, they are large libraries.
+```
+
 ## Prompt 1. The day-one brief (verbatim)
 
 ```
