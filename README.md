@@ -8,6 +8,28 @@ You describe your game, or say you don't have one yet. Claude helps you pin it d
 
 Based on [@0xbobaaa's guide](https://x.com/0xbobaaa/status/2112514472078115173) to building *Skyhold* with Claude Opus 5.5: 22 build steps, about $164, 9 days from an empty folder to passing CrazyGames' QA on the first try.
 
+## Built with this skill: Head Room
+
+[![Head Room: foam heaping over the rim of a pint glass in a clay-style bar](showcase/head-room/foam-over.jpg)](https://head-room.vercel.app)
+
+**▶ Play it: [head-room.vercel.app](https://head-room.vercel.app)** (desktop or phone)
+
+*Pour too fast and it foams over.* Drag the tap handle down. The further you pull, the faster it pours and the more foam builds. Serve 8 orders before closing. Spills and walk-outs are strikes.
+
+This was the skill's end-to-end test, starting from "how about a game centred on a brewery?":
+
+- **Rule:** the brainstorm pitched 5 brewery rules and cut one ("yeast doubles every few seconds" fails the 2-second test). The pick was *pour too fast and it foams over*.
+- **Route:** real beer is PEGI 16+, so CrazyGames (PEGI 12) and Poki are out. The skill's mature route sent it to its own site on Vercel, plus itch.io.
+- **Look:** soft clay diorama, Baloo 2 + Nunito, self-hosted.
+- **Build:** one day-one pass on Opus: **$2.26, 9.5 minutes**, 1,753 lines, 3.1 MB total, zero external requests.
+- **What the test caught:** 8 problems in the skill itself, all fixed. The biggest one: headless passes were quietly loading the user's personal `~/.claude` instructions.
+
+| Pouring gently | Served | On a phone |
+|---|---|---|
+| <img src="showcase/head-room/pouring.jpg" width="300" alt="Gentle pour: amber beer with foam settling at the teal fill line"> | <img src="showcase/head-room/served.jpg" width="300" alt="Glass slides to the customer with a Served +$2 toast"> | <img src="showcase/head-room/phone.jpg" width="140" alt="Phone layout with HUD, order card and glass"> |
+
+*Status: a day-one build. It's untuned and hasn't had a human playtest yet; the next passes tune the pour and fix the phone layout.*
+
 ## How it works
 
 1. **Find the rule.** One sentence a stranger gets in 2 seconds. No idea yet? Claude asks four questions and pitches five options. You pick.
