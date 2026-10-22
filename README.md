@@ -12,11 +12,12 @@ Based on [@0xbobaaa's guide](https://x.com/0xbobaaa/status/2112514472078115173) 
 
 1. **Find the rule.** One sentence a stranger gets in 2 seconds. No idea yet? Claude asks four questions and pitches five options. You pick.
 2. **One-page plan.** The loop, how you win, how you lose, and controls on desktop and phone.
-3. **Small passes.** Each Claude run builds one feature and gets a **keep list** of what's already approved, so new work doesn't break old work. You play after every pass.
-4. **Fix the first minute.** Track visited → opened → started → finished. No new features until people finish a round.
-5. **Self-recording trailer.** A `?capture` mode plays the game on autopilot and saves frames for portal clips and covers.
-6. **One adapter, one zip per portal.** Each portal's SDK (the library it requires for saves, ads and mute) sits behind one small layer, so the game code never changes.
-7. **Fix the worst number.** After launch: impressions, click rate, play time, next-day return.
+3. **Pick the look.** Choose from 7 code-only 3D styles (low-poly, toon, voxel, clay, isometric, neon, pixel) and a free font pair. It's saved as `STYLE.md`, so every pass keeps the same look.
+4. **Small passes.** Each Claude run builds one feature and gets a **keep list** of what's already approved, so new work doesn't break old work. You play after every pass.
+5. **Fix the first minute.** Track visited → opened → started → finished. No new features until people finish a round.
+6. **Home page + self-recording trailer.** Your own site with PLAY on top, then the rules, an interactive rule demo, and a build log. A `?capture` mode plays the game on autopilot and saves frames for clips and covers.
+7. **One adapter, one zip per portal.** Each portal's SDK (the library it requires for saves, ads and mute) sits behind one small layer, so the game code never changes.
+8. **Fix the worst number.** After launch: impressions, click rate, play time, next-day return.
 
 You can enter at any step. Claude works out where your project is.
 
@@ -55,7 +56,9 @@ browser-game-to-portal/
 ├── SKILL.md              # Stage router, brainstorm, pass loop, defaults, guardrails
 ├── references/
 │   ├── briefs.md         # Five-part brief template + the guide's prompts
-│   ├── portals.md        # SDK adapter, CrazyGames QA gate, launch paths
+│   ├── style.md          # 7 code-only 3D styles, fonts, per-portal cover rules
+│   ├── landing.md        # The game's home page (modelled on skyhold.lol)
+│   ├── portals.md        # SDK adapter, size budgets, QA gate, launch paths, video specs
 │   └── funnel.md         # First-minute funnel and post-launch numbers
 └── scripts/
     └── run-pass.sh       # Run one brief headless, log its cost

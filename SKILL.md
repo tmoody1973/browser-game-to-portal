@@ -1,6 +1,6 @@
 ---
 name: browser-game-to-portal
-description: Takes a small browser game from an empty folder (or any stage after) to live on web game portals (CrazyGames, Poki, itch.io, Newgrounds) using a one-line rule, a one-page game doc, short single-system AI passes with a "keep" list, a self-recording trailer mode, a first-minute funnel, a portal SDK adapter, and post-launch numbers. Use when the user wants to brainstorm a game idea, or make, scope, brief, ship, or grow a browser/HTML5/three.js game, mentions game portals or their SDK/QA, asks how to brief Claude for a game feature, or a game has features but nobody finishes a run.
+description: Takes a small browser game from an empty folder (or any stage after) to live on web game portals (CrazyGames, Poki, itch.io, Newgrounds) using a one-line rule, a one-page game doc, short single-system AI passes with a "keep" list, a self-recording trailer mode, a first-minute funnel, a portal SDK adapter, and post-launch numbers. Use when the user wants to brainstorm a game idea, or make, scope, brief, ship, or grow a browser/HTML5/three.js game, mentions game portals or their SDK/QA, asks how to brief Claude for a game feature, wants a 3D art style, fonts, covers, or a home/about page for the game, or a game has features but nobody finishes a run.
 ---
 
 # Browser Game → Portal
@@ -18,9 +18,10 @@ Ask what exists, then jump in. Don't restart a project that's already moving.
 | Nothing, a vibe, or "make me a game" | **Find the rule**: a short brainstorm that ends in one sentence | below |
 | An idea but no rule | Same brainstorm, starting from step 2 with their idea as the seed | below |
 | A rule | Write the **one-page doc**, then run Prompt 1 (day-one brief). Goal: playable, ugly is fine. | briefs.md |
+| A doc, no look yet | **Pick the look**: offer 2–3 styles, user picks, write `STYLE.md` | style.md |
 | A playable core | **Passes**: one system per run, five-part brief. | briefs.md |
 | Features, but no traffic data | **Measure first.** Add funnel events, run Prompt 2. Freeze new features. | funnel.md |
-| A first minute that works | **Host** on own domain, add `?capture` trailer mode | below, briefs.md |
+| A first minute that works | **Host** on own domain with a **home page** (rules, rule toy, build log), add `?capture` | landing.md, briefs.md |
 | Ready to publish | **Portal adapter + one zip per portal** (Prompt 3), pass the QA gate | portals.md |
 | Live on a portal | **Four numbers**. Fix the worst one, one pass at a time | funnel.md |
 
@@ -44,11 +45,15 @@ The output is one sentence a stranger gets in 2 s, before the first tap (Skyhold
 
 Rule · loop (what the player does every 5 s) · win · lose · camera · controls on desktop **and** phone · what "done for today" means. Fill the blanks with the user. Don't invent their game.
 
+## Pick the look (before the day-one brief)
+
+From the style menu in style.md, offer 2–3 looks that make **the rule readable at thumbnail size** and fit a phone budget, plus a matching OFL font pair. The user picks. Write `STYLE.md` (palette, materials, light, camera, post-processing, fonts, "never" list). It goes into every brief alongside `KEEP.md`. Fonts are always self-hosted (Poki blocks the Google Fonts CDN).
+
 ## The pass loop
 
 1. Pick ONE system. Write a brief using the five-part template in briefs.md.
 2. Run it: `scripts/run-pass.sh brief.txt` (headless `claude -p`, logs cost to `passes.jsonl`), or hand the same brief to a subagent or do it in-session. **The brief is the method. The runner is interchangeable.**
-3. The human playtests. Accepted behaviour joins the project's **keep list** (`KEEP.md`), which goes into every later brief.
+3. The human playtests. Accepted behaviour joins the project's **keep list** (`KEEP.md`), which goes into every later brief with `STYLE.md`.
 4. Next pass. Each one gets one finish line you can check by playing.
 
 The guide's range: $1.01 (SDK save) to $12.94 (arcade loop) per pass, and 46 min for the day-one pass. The cost per feature comes back in the JSON, so the ledger shows what each feature cost.
@@ -59,13 +64,15 @@ The guide's range: $1.01 (SDK save) to $12.94 (arcade loop) per pass, and 46 min
 |---|---|---|
 | Engine | three.js loaded locally via importmap, no other scripts | Canvas 2D, Phaser, PixiJS. Keep "one engine, no build step" |
 | Art | All drawn in code: low-poly meshes, SVG mascots in one module, no image files | Allowed if the user insists. You give up the tiny build (Skyhold: 1.5 MB) and the "no licences to check" benefit |
+| Look | Low-poly flat pastel | 7-style menu in style.md (toon, voxel, clay, isometric, neon, pixel) |
+| Type | Self-hosted OFL woff2, display + UI (Skyhold: Baloo 2 + Nunito, JetBrains Mono for numbers) | Any OFL pair. Never a CDN in portal builds |
 | Model | `--model opus` | Any. Keep the tool allowlist tight |
 | Host | One small Node process (Skyhold: 20 MB RAM, ~$0.19/mo), own domain from day one | Any static host + tiny endpoint |
 | Portals | CrazyGames, Poki, GameDistribution, itch.io, Newgrounds | Any subset. Adapter makes adding one cheap |
 
 ## Trailer: let the game record itself
 
-Add `?capture`: fixed-size canvas, deterministic `window.render(t)`, and a scripted demo that plays the real game. Record frame by frame with a headless browser (a committed Playwright script works well, since this belongs in the repo). Re-record whenever the game changes. Feeds the portals' 15–20 s clip and their covers (16:9, plus portrait/square).
+Add `?capture`: fixed-size canvas, deterministic `window.render(t)`, and a scripted demo that plays the real game. Record frame by frame with a headless browser (a committed Playwright script works well, since this belongs in the repo). Re-record whenever the game changes. Feeds the portals' 15–20 s clip (landscape + portrait), the covers (exact sizes and per-portal text rules in portals.md and style.md), and the home page's og:image.
 
 ## Guardrails: six mistakes that waste a weekend
 

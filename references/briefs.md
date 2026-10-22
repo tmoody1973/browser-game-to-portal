@@ -15,7 +15,7 @@ Template:
 ```
 Read first: [files touched by this system]. Skip [three.module.js / vendor/ / other big libs].
 Do exactly this: [one system, one sentence].
-Keep working exactly as they are: [paste KEEP.md]
+Keep working exactly as they are: [paste KEEP.md]. Follow STYLE.md exactly.
 Done means: [a check a human can do by playing, e.g. "I drop 3 houses and the island tilts toward the heavier side"].
 Do not open a browser. Just write the files. No runtime errors.
 ```
@@ -43,6 +43,8 @@ Do not open a browser. Just write the files. No runtime errors.
 ```
 
 Guide result: 46 minutes, a playable island, "ugly in places, but playable, and that's the only goal of day one." For a 2D game, swap the Tech line. Keep "local, no other scripts, built from code."
+
+**Skill addition (not in the guide):** once `STYLE.md` exists, add one line after Tech: `Style: read STYLE.md and follow it exactly. Fonts are self-hosted in fonts/.`
 
 ## Prompt 2. Fix the funnel (verbatim)
 
