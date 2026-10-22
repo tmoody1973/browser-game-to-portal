@@ -68,6 +68,7 @@ The guide's range: 1.01–12.94 USD (SDK save to arcade loop) per pass, and 46 m
 | Art | All drawn in code: low-poly meshes, SVG mascots in one module, no image files | Allowed if the user insists. You give up the tiny build (Skyhold: 1.5 MB) and the "no licences to check" benefit |
 | Look | Low-poly flat pastel | 7-style menu in style.md (toon, voxel, clay, isometric, neon, pixel) |
 | Type | Self-hosted OFL woff2, display + UI (Skyhold: Baloo 2 + Nunito, JetBrains Mono for numbers) | Any OFL pair. Never a CDN in portal builds |
+| Sound | Synthesized in code (Web Audio). Warning cue first; one pass after the first minute works (sound.md) | ZzFX (MIT, tiny) or bundled generated files |
 | Model | `--model opus` | Any. Keep the tool allowlist tight |
 | Host | One small Node process (Skyhold: 20 MB RAM, ~0.19 USD/mo), own domain from day one | Any static host + tiny endpoint |
 | Portals | CrazyGames, Poki, GameDistribution, itch.io, Newgrounds | Any subset. Adapter makes adding one cheap |

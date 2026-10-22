@@ -21,7 +21,7 @@ This was the skill's end-to-end test, starting from "how about a game centred on
 - **Rule:** the brainstorm pitched 5 brewery rules and cut one ("yeast doubles every few seconds" fails the 2-second test). The pick was *pour too fast and it foams over*.
 - **Route:** real beer is PEGI 16+, so CrazyGames (PEGI 12) and Poki are out. The skill's mature route sent it to its own site on Vercel, plus itch.io.
 - **Look:** soft clay diorama, Baloo 2 + Nunito, self-hosted.
-- **Build:** one day-one pass on Opus: **$2.26, 9.5 minutes**, 1,753 lines, 3.1 MB total, zero external requests.
+- **Build:** a day-one pass on Opus (**$2.26, 9.5 minutes**, 1,753 lines), then a sound pass (**$1.01, 2.8 minutes**). Everything is synthesized in code: a pour that follows your pull, a fizz warning near the rim, a serve clink, strike thuds, win/lose stings, and mute. 3.1 MB total, zero external requests.
 - **What the test caught:** 8 problems in the skill itself, all fixed. The biggest one: headless passes were quietly loading the user's personal `~/.claude` instructions.
 
 | Pouring gently | Served | On a phone |
@@ -34,7 +34,7 @@ This was the skill's end-to-end test, starting from "how about a game centred on
 
 1. **Find the rule.** One sentence a stranger gets in 2 seconds. No idea yet? Claude asks four questions and pitches five options. You pick.
 2. **One-page plan.** The loop, how you win, how you lose, and controls on desktop and phone.
-3. **Pick the look.** Choose from 7 code-only 3D styles (low-poly, toon, voxel, clay, isometric, neon, pixel) and a free font pair. It's saved as `STYLE.md`, so every pass keeps the same look.
+3. **Pick the look and sound.** Choose from 7 code-only 3D styles (low-poly, toon, voxel, clay, isometric, neon, pixel), a free font pair, and a sound character. It's saved as `STYLE.md`, so every pass keeps the same look. Sound is synthesized in code, starting with the **warning cue** that plays right before you fail.
 4. **Small passes.** Each Claude run builds one feature and gets a **keep list** of what's already approved, so new work doesn't break old work. You play after every pass.
 5. **Fix the first minute.** Track visited → opened → started → finished. No new features until people finish a round.
 6. **Home page + self-recording trailer.** Your own site with PLAY on top, then the rules, an interactive rule demo, and a build log. A `?capture` mode plays the game on autopilot and saves frames for clips and covers.
@@ -131,6 +131,7 @@ browser-game-to-portal/
 ├── references/
 │   ├── briefs.md         # Five-part brief template + the guide's prompts
 │   ├── style.md          # 7 code-only 3D styles, fonts, per-portal cover rules
+│   ├── sound.md          # Sound that serves the rule: synth recipes, ZzFX, mute/ad/iOS rules
 │   ├── landing.md        # The game's home page (modelled on skyhold.lol)
 │   ├── portals.md        # SDK adapter, size budgets, QA gate, launch paths, video specs
 │   └── funnel.md         # First-minute funnel and post-launch numbers

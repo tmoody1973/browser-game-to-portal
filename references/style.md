@@ -19,6 +19,7 @@ Palette: bg #… · ground #… · hero #… · accent #… · danger #…
 Materials: […]   Light & fog: […]   Camera: […]
 Post-processing: none | […] (phone fallback: […])
 Type: display [font] · UI [font] · numbers [font or tabular-nums], self-hosted woff2 in fonts/, OFL
+Sound: [character, e.g. "warm, wooden, soft; no harsh beeps"] · warning cue = [what] · method A/B/C (sound.md)
 Never: [what breaks the look, e.g. "no pure black", "no gradients on UI"]
 ```
 
